@@ -1,16 +1,12 @@
-document.addEventListener("DOMContentLoaded", () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        const url = tabs[0].url;
-        generateQRCode(url);
+document.addEventListener('DOMContentLoaded', function() {
+    const generateBtn = document.getElementById('generateBtn');
+    const qrDataInput = document.getElementById('qrData');
+    const qrCodeContainer = document.getElementById('qrCodeContainer');
+
+    generateBtn.addEventListener('click', function() {
+      const qrData = qrDataInput.value;
+      const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrData)}`;
+
+      qrCodeContainer.innerHTML = `<img src="${qrCodeUrl}" alt="QR Code">`;
     });
 });
-
-function generateQRCode(url) {
-    const qrCodeContainer = document.getElementById("qrCode");
-
-    const img = document.createElement("img");
-    img.src = https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(url)};
-    img.alt = "QR-код";
-
-    qrCodeContainer.appendChild(img);
-}
